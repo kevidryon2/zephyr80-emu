@@ -30,8 +30,7 @@ I designed this Z80 emulator around ZephyrOS, my custom OS for the Z80.
 |---	|---	|---	|---	|---	|
 | Video RAM 	| - 	| 24K 	| The memory used by the GPU to draw the frame 	|  	|
 | Audio RAM 	| - 	| 16K 	| The memory used by the APU to play audio 	| ARAM is currently unused becuase i have no idea how to implement audio. 	|
-| Work RAM 	| WRAM 0-255 	| 16K 	| A mirror of CPU-space $A000 to $BFFF (Banked WRAM) 	|  	|
-| Unused 	| - 	| 14K 	|  	|  	|
+| Unused 	| - 	| 24K 	|  	|  	|
 
 #### Banking
 
