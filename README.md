@@ -8,10 +8,12 @@ I designed this Z80 emulator around ZephyrOS, my custom OS for the Z80.
 | BIOS ROM 	| - 	| 8K 	| The ROM of the BIOS. 	|  	|
 | Work RAM 	| WRAM 0 	| 16K 	| General RAM 	|  	|
 | Work RAM 	| WRAM 0-255 	| 16K 	| Banked RAM 	| Acts as a mirror to WRAM 0 if using WRAM bank 0 	|
-| FLASH A	| FLASH 0-255 	| 8K 	| Banked Flash memory for permanent storage	(4x 128K EEPROMs) |  	|
-| FLASH B	| FLASH 0-255 	| 8K 	| Banked Flash memory for permanent storage	(4x 128K EEPROMs) |  	|
+| FLASH A	| FLASH 0-255 	| 8K 	| Banked Flash memory for permanent storage* |  	|
+| FLASH B	| FLASH 0-255 	| 8K 	| Banked Flash memory for permanent storage* |  	|
 | Unused 	| - 	| 7.75K 	|  	|  	|
 | I/O 	| - 	| 256B 	| I/O registers. 	|  	|
+
+*: The 2 Flash memory locations mapped on the CPU's address bus point to the same Flash memory, but at different addresses.
 
 ### VRAM Map
 | Name 	| Banking 	| Size 	| Description 	| Note 	|
