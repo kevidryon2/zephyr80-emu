@@ -1,5 +1,4 @@
 # Zephyr80-Emu
-I designed this Z80 emulator around my dream computer, that is the one 
 
 ## Features
 ### System
@@ -47,24 +46,20 @@ I designed this Z80 emulator around my dream computer, that is the one
 | Sprite #1 X Position 	| - 	| 1B 	|  	|  	|
 | Sprite #1 Y Position 	| - 	| 1B 	|  	|  	|
 | Sprite #1 Tile 	| - 	| 1B 	|  	|  	|
-| Sprite #1 Palette and Tileset bank 	| - 	| 1B 	| The first 4 bits are the palette the sprite uses, while the last ones represent which Tileset bank they use. 	|  	|
+| Sprite #1 Palette 	| - 	| 1B 	|  	|  	|
 | Sprite #1 Flags 	|  	| 1B 	| Bit 0: Horizontal Flip<br>Bit 1: Vertical Flip<br>Bit 2: X Position's 9th bit<br>Bit 3: Y Position's 9th bit 	|  	|
-| Reserved 	| - 	| 3B 	| Unused 	|  	|
-| Sprite #2 X Position 	| - 	| 1B 	|  	|  	|
-| Sprite #2 Y Position 	| - 	| 1B 	|  	|  	|
-| Sprite #2 Tile 	| - 	| 1B 	|  	|  	|
-| Sprite #2 Palette and Tileset bank 	| - 	| 1B 	| The first 4 bits are the palette the sprite uses, while the last ones represent which Tileset bank they use. 	|  	|
-| Sprite #2 Flags 	|  	| 1B 	| Bit 0: Horizontal Flip<br>Bit 1: Vertical Flip<br>Bit 2: X Position's 9th bit<br>Bit 3: Y Position's 9th bit 	|  	|
-| Reserved 	| - 	| 3B 	| Unused 	|  	|
+| Sprite #1 Tileset bank 	| - 	| 1B 	|  	|  	|
+| Unused 	|  	| 2B 	|  	|  	|
 | ... 	|  	|  	|  	|  	|
 | Sprite #2048 X Position 	| - 	| 1B 	|  	|  	|
 | Sprite #2048 Y Position 	| - 	| 1B 	|  	|  	|
 | Sprite #2048 Tile 	| - 	| 1B 	|  	|  	|
-| Sprite #2048 Palette and Tileset bank 	| - 	| 1B 	| The first 4 bits are the palette the sprite uses, while the last ones represent which Tileset bank they use. 	|  	|
-| Sprite #2048 Flags 	|  	| 1B 	| Bit 0: Horizontal Flip<br>Bit 1: Vertical Flip<br>Bit 2: X Position's 9th bit<br>Bit 3: Y Position's 9th bit 	|  	|
-| Reserved 	| - 	| 3B 	| Unused 	|  	|
+| Sprite #2048 Palette 	| - 	| 1B 	|  	|  	|
+| Sprite #2048 Flags 	|  	| 1B 	|  	|  	|
+| Sprite #2048 Tileset bank 	| - 	| 1B 	|  	|  	|
+| Unused 	|  	| 2B 	|  	|  	|
 
-### VRAM Map
+### VRAM Map (Mode 0)
 | Name 	| Banking 	| Size 	| Description 	| Note 	|
 |---	|---	|---	|---	|---	|
 | Palettes 	| - 	| 8K 	| The Zephyr80 uses 16-bit colors and 16 palettes, with 16 colors each. 	|  	|
@@ -105,7 +100,7 @@ Controls the memory bank used by the Tileset in VRAM.
 ##### $FF04 (VMAPBANK)
 Controls the memory bank used by the Tilemap Tiles (first 4 bits) and Tilemap Palettes (last 4 bits) in VRAM.
 
-##### $FF06 (OAMBANK)
+##### $FF05 (OAMBANK)
 Controls the memory bank used by OAM.
 
 #### DMA
@@ -128,10 +123,35 @@ DMA starts at $FF06.
 | DMA Channel #16 Data 	| 94 	| 1 	|
 | DMA Channel #16 Flags 	| 95 	| 1 	|
 
-
 ##### DMA Flags
 
 - Bit 0: Auto-increment Source address
 - Bit 1: Auto-increment Destination address
 - Bit 2: Auto DMA (When this bit is set, the CPU is temporainly paused to perform DMA).
 - Bit 3: Copy from Source Address (LOW) / Copy from Data (HIGH)
+
+#### Other
+
+##### $FF66 (VMODE)
+The graphics mode used:
+
+##### $FF67-$FF68 (VPOSX)
+The X position of the "scanning beam" on the screen.
+
+##### $FF69-$FF6A (VPOSY)
+The Y position of the "scanning beam" on the screen.
+
+#### Scanline interrupts
+
+A scanline interrupt interrupts the CPU when the "scanning beam" reaches the desired scanline. The highest bit of each scanline interrupt determines wheteaver it is activated or not. When it is triggered, it resets to 0 if the second highest bit is set.
+
+##### $FF6B-$FF6C (VINT0)
+The 1st scanline interrupt.
+
+##### $FF6D-$FF6E (VINT1)
+The 2nd scanline interrupt.
+
+...
+
+##### $FF7B-$FF7C (VINT7)
+The 8th scanline interrupt.
