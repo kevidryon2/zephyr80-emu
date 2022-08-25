@@ -1,14 +1,5 @@
 # Zephyr80-Emu
 
-## Features
-
-- Graphics:
-  - 16 palettes, each with 16 16-bit colors
-  - 16 switchable tilesets, each 256 tiles
-  - 16 switchable tilemaps, each 64x64 tiles big
-  - A video resolution of VGA 640x480 (40x30 tiles)
-  - 128 sprites
-
 ## Memory Map
 
 | Name 	| Banking 	| Size 	| Description 	| Note 	|
@@ -42,10 +33,10 @@
 | Sprite #2048 Tileset bank 	| - 	| 1B 	|  	|  	|
 | Unused 	|  	| 2B 	|  	|  	|
 
-### VRAM Map (Mode 0)
+### VRAM Map
 | Name 	| Banking 	| Size 	| Description 	| Note 	|
 |---	|---	|---	|---	|---	|
-| Palettes 	| - 	| 8K 	| The Zephyr80 uses 16-bit colors and 16 palettes, with 16 colors each. 	|  	|
+| Palettes 	| - 	| 8K 	| The Zephyr80 uses 16-bit colors and 256 palettes, with 16 colors each. 	|  	|
 | Blending 	| - 	| 1B 	| The first 4 bits specify the background layers to blended, while the last ones specify the blending modes activated. 	|  	|
 | Tileset #0 	| Tileset 0-15 	| 8K 	| In the Zephyr80 each tileset contains 256 4bpp 8x8 tiles, each being 32 bytes. 	|  	|
 | Tilemap Tiles 	| Tilemap Tiles 0-15 	| 4K 	| A 64x64 grid of tile indexes. 	|  	|
@@ -116,7 +107,7 @@ DMA starts at $FF06.
 #### Other
 
 ##### $FF66 (VMODE)
-The graphics mode used:
+The graphics mode used. I originally wanted to implement this but it turned out that it was too complicated so i left it out. This byte is currently unused.
 
 ##### $FF67-$FF68 (VPOSX)
 The X position of the "scanning beam" on the screen.
@@ -129,12 +120,25 @@ The Y position of the "scanning beam" on the screen.
 A scanline interrupt interrupts the CPU when the "scanning beam" reaches the desired scanline. The highest bit of each scanline interrupt determines wheteaver it is activated or not. When it is triggered, it resets to 0 if the second highest bit is set.
 
 ##### $FF6B-$FF6C (VINT0)
-The 1st scanline interrupt.
+The 1st scanline interrupt. It jumps to $40.
 
 ##### $FF6D-$FF6E (VINT1)
-The 2nd scanline interrupt.
+The 2nd scanline interrupt. It jumps to $48.
 
-...
+##### $FF6F-$FF70 (VINT2)
+The 3rd scanline interrupt. It jumps to $50.
 
-##### $FF7B-$FF7C (VINT7)
-The 8th scanline interrupt.
+##### $FF71-$FF72 (VINT3)
+The 4th scanline interrupt. It jumps to $58.
+
+##### $FF73-$FF74 (VINT4)
+The 5th scanline interrupt. It jumps to $60.
+
+##### $FF75-$FF76 (VINT5)
+The 6th scanline interrupt. It jumps to $68.
+
+##### $FF77-$FF78 (VINT6)
+The 7th scanline interrupt. It jumps to $70.
+
+##### $FF79-$FF7A (VINT7)
+The 8th scanline interrupt. It jumps to $78.
