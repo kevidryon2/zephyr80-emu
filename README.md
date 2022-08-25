@@ -1,23 +1,6 @@
 # Zephyr80-Emu
 
 ## Features
-### System
-  - Using a Z80 which runs at 12.5875MHz.
-  - SRC and DEST instead of HL and IX/IY
-  - F is not the flags register, but an actual register.
-  - Register pairs changed from BC,DE,HL to AB,CD,EF,SRC,DEST
-  - Built-in multiplication/division inctructions
-  - Built-in double-speed mode (25.175MHz)
-  - RST $40, $48, $50, $58, $60, $68, $70, $78, $80
-  - Block copy instruction (Copy AB bytes from SRC to DEST)
-  - Exception handlers:
-    - Illegal instruction = RST $80,
-    - Arithmetic exception = RST $88,
-    - Invalid memory bank = RST $90
-  - Register swapping
-  - Pointer calling (Call address that has the value pointed to by SRC)
-  - Pointer offsetting (eg. Call address that has the value pointed to by SRC+A), (eg, Set A to the value pointed to by SRC+A)
-
 
 - Graphics:
   - 16 palettes, each with 16 16-bit colors
